@@ -3066,18 +3066,6 @@
         font-weight: 800;
     }
 }
-#lobby-mobile-info-btn {
-    display: none;
-}
-@media(max-width:800px) {
-    #lobby-mobile-info-btn {
-        display: inline-flex !important;
-        width: 26px;
-        height: 26px;
-        font-size: 13px;
-        font-weight: 800;
-    }
-}
     </style>
 </head>
 
@@ -3194,7 +3182,8 @@
                             title="Kodu kopyala">📋</button>
                     </div>
                     <span class="badge b-wood" id="lobby-pcount">0/6</span>
-                    <button class="info-btn" onclick="openInfoModal()" id="lobby-mobile-info-btn">?</button>
+                    <button class="info-btn" onclick="openInfoModal()" id="lobby-mobile-info-btn"
+                        style="display:none;">?</button>
                     <div class="role-badge" id="lobby-role-badge" style="display:none">
                         <span class="role-badge-text" id="lobby-role-text">1 Hain</span>
                         <button class="info-btn" onclick="openInfoModal()">ℹ</button>
