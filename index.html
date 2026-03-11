@@ -715,6 +715,73 @@
 
         @media(max-width:600px) {
             .lobby-topbar {
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                padding: 8px 10px;
+                gap: 6px;
+            }
+
+            .lobby-topbar-left {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 6px;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .lobby-topbar-right {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 6px;
+                width: 100%;
+            }
+
+            .lobby-topbar-left .role-badge,
+            .invite-row,
+            .lobby-topbar .theme-btn {
+                display: none !important;
+            }
+
+            .rp-label {
+                display: none;
+            }
+
+            .room-pill {
+                padding: 4px 8px;
+                gap: 4px;
+            }
+
+            .rp-code {
+                font-size: 14px !important;
+                letter-spacing: .08em !important;
+            }
+
+            .lobby-pcount-badge {
+                display: none !important;
+            }
+
+            .lobby-mobile-game-info {
+                display: flex !important;
+                margin-left: auto;
+            }
+
+            #lobby-pcount {
+                font-size: 11px;
+                display: inline-flex !important;
+            }
+
+            #start-btn {
+                flex: 1;
+                font-size: 14px !important;
+                border-radius: 12px !important;
+            }
+        }
+
+        @media(max-width:600px) {
+            .lobby-topbar {
                 flex-direction: column !important;
                 align-items: stretch !important;
                 padding: 8px 10px !important;
