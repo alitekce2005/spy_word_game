@@ -715,152 +715,34 @@
 
         @media(max-width:600px) {
             .lobby-topbar {
-                flex-direction: column;
-                align-items: stretch;
-                justify-content: flex-start;
-                padding: 8px 10px;
-                gap: 6px;
-            }
-
-            .lobby-topbar-left {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                gap: 6px;
-                width: 100%;
+                flex-wrap: wrap;
                 overflow: hidden;
             }
 
-            .lobby-topbar-right {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                gap: 6px;
-                width: 100%;
-            }
-
-            .lobby-topbar-left .role-badge,
-            .invite-row,
-            .lobby-topbar .theme-btn {
-                display: none !important;
-            }
-
-            .rp-label {
+            .invite-row {
                 display: none;
             }
 
-            .room-pill {
-                padding: 4px 8px;
-                gap: 4px;
-            }
-
-            .rp-code {
-                font-size: 14px !important;
-                letter-spacing: .08em !important;
-            }
-
-            .lobby-pcount-badge {
-                display: none !important;
-            }
-
-            .lobby-mobile-game-info {
-                display: flex !important;
-                margin-left: auto;
-            }
-
-            #lobby-pcount {
-                font-size: 11px;
-                display: inline-flex !important;
-            }
-
-            #start-btn {
-                flex: 1;
-                font-size: 14px !important;
-                border-radius: 12px !important;
-            }
-        }
-
-        @media(max-width:600px) {
-            .lobby-topbar {
-                flex-direction: column !important;
-                align-items: stretch !important;
-                padding: 8px 10px !important;
-                gap: 6px !important;
-                overflow: visible !important;
-                justify-content: unset !important;
-            }
-
-            .invite-row {
-                display: none !important;
-            }
-
             .lobby-topbar .theme-btn {
-                display: none !important;
-            }
-
-            .lobby-topbar-left {
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: center !important;
-                justify-content: flex-start !important;
-                gap: 6px !important;
-                width: 100% !important;
-                min-width: 0 !important;
-                overflow: hidden !important;
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
             }
 
             .lobby-topbar-left .role-badge {
                 display: none !important;
             }
 
-            .rp-label {
-                display: none !important;
-            }
-
-            .room-pill {
-                padding: 4px 8px !important;
-                gap: 4px !important;
-                flex-shrink: 0 !important;
-            }
-
             .rp-code {
-                font-size: 14px !important;
+                font-size: 16px !important;
                 letter-spacing: .08em !important;
             }
 
-            .lobby-pcount-badge {
-                display: none !important;
-            }
-
-            .lobby-mobile-game-info {
-                display: flex !important;
-                margin-left: auto !important;
-                flex-shrink: 0 !important;
-            }
-
             .lobby-topbar-right {
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: center !important;
-                gap: 6px !important;
-                width: 100% !important;
-                min-width: 0 !important;
-                justify-content: flex-start !important;
-            }
-
-            #lobby-pcount {
-                flex-shrink: 0 !important;
-                font-size: 11px !important;
-                display: inline-flex !important;
-            }
-
-            #start-btn {
-                flex: 1 !important;
-                padding: 11px 10px !important;
-                font-size: 14px !important;
-                white-space: nowrap !important;
-                border-radius: 12px !important;
-                display: flex !important;
+                gap: 5px;
+                flex-wrap: nowrap;
+                min-width: 0;
+                overflow: hidden;
             }
         }
 
@@ -1244,44 +1126,6 @@
             background: var(--teal);
             color: #fff;
             border-color: var(--teal)
-        }
-
-        /* Mobil lobi bilgi satırı */
-        .lobby-mobile-game-info {
-            display: none;
-            align-items: center;
-            gap: 6px;
-            flex-shrink: 0;
-            overflow: hidden;
-            max-width: 100%;
-        }
-
-        .lmgi-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(179, 157, 219, .15);
-            border: 1.5px solid rgba(179, 157, 219, .35);
-            border-radius: 50px;
-            padding: 4px 9px;
-            cursor: pointer;
-            flex-shrink: 0;
-            white-space: nowrap;
-        }
-
-        .lmgi-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--lavender);
-            animation: shimmer 1.5s infinite;
-        }
-
-        .lmgi-text {
-            font-family: 'Fredoka', sans-serif;
-            font-weight: 600;
-            font-size: 12px;
-            color: var(--lavender);
         }
 
         /* Mobile settings card inside lobby-main (only on mobile) */
@@ -3327,17 +3171,10 @@
                             onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6"
                             title="Kodu kopyala">📋</button>
                     </div>
-                    <span class="badge b-wood lobby-pcount-badge" id="lobby-pcount">0/10</span>
+                    <span class="badge b-wood" id="lobby-pcount">0/6</span>
                     <div class="role-badge" id="lobby-role-badge" style="display:none">
                         <span class="role-badge-text" id="lobby-role-text">1 Hain</span>
                         <button class="info-btn" onclick="openInfoModal()">ℹ</button>
-                    </div>
-                    <!-- Sadece mobilde görünen: Oyun ? bilgi pill -->
-                    <div class="lobby-mobile-game-info" id="lobby-mobile-game-info">
-                        <div class="lmgi-pill" onclick="openInfoModal()">
-                            <div class="lmgi-dot"></div>
-                            <span class="lmgi-text" id="lmgi-text">Oyun ?</span>
-                        </div>
                     </div>
                 </div>
                 <div class="lobby-topbar-right">
@@ -3348,8 +3185,7 @@
                     <button class="theme-btn" onclick="toggleTheme()" aria-label="Temayı değiştir">
                         <span class="theme-icon">🌙</span>
                     </button>
-                    <button class="btn btn-primary btn-sm" id="start-btn" onclick="startGame()" disabled>🚀
-                        Başlat</button>
+                    <button class="btn btn-primary" id="start-btn" onclick="startGame()" disabled>🚀 Başlat</button>
                 </div>
             </div>
 
@@ -3917,18 +3753,6 @@
             // Lobi rozet görünürlüğü
             const lb = document.getElementById('lobby-role-badge');
             if (lb) lb.style.display = (r.traitor > 0 || r.neutral > 0) ? 'inline-flex' : 'none';
-
-            // Mobil "Oyun ?" pill içeriğini güncelle
-            const lmgi = document.getElementById('lmgi-text');
-            if (lmgi) {
-                const dots = ['Oyun ?', 'Oyun ??', 'Oyun ???'];
-                lmgi._rotateIdx = ((lmgi._rotateIdx || 0) + 1) % dots.length;
-                // İçeriği roller bilgisine göre yaz
-                const parts = [];
-                if (r.traitor > 0) parts.push(r.traitor + ' Hain');
-                if (r.neutral > 0) parts.push(r.neutral + ' Tarafsız');
-                lmgi.textContent = parts.length ? '? ' + parts.join(' · ') : 'Oyun ?';
-            }
         }
 
         /* ═══ ROL DAĞITIMI ═══ */
