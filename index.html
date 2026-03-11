@@ -3893,7 +3893,8 @@
             roomRef.child('lobbyReady').child(myId).onDisconnect().remove();
 
             document.getElementById('lobby-code-disp').textContent = G.roomCode;
-            document.getElementById('lobby-invite').textContent = `${location.origin}${location.pathname}?code=${G.roomCode}`;
+            const storeBaseUrl = "https://alitekce2005.github.io/Ali_Store/";
+            document.getElementById('lobby-invite').textContent = `${storeBaseUrl}?game=10&code=${G.roomCode}`;
 
             let prevPlayerCount = 0;
 
@@ -4729,8 +4730,8 @@
                 const showRole = isSelf || (G.roles[G.myIndex] === 'traitor' && pRole === 'traitor');
                 const voteFrameClass = p.activeFrame || '';
                 const voteAvatarContent = p.photoURL
-    ? `<img src="${p.photoURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display='none'">`
-    : p.name[0];
+                    ? `<img src="${p.photoURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display='none'">`
+                    : p.name[0];
                 return `<div class="vote-card ${isSelf ? 'vself' : ''}" id="vc-${pi}" onclick="${isSelf ? '' : `selectVote(${pi})`}">
   <div class="vav ${voteFrameClass}" style="background:linear-gradient(135deg,${p.avatar[0]},${p.avatar[1]});">${voteAvatarContent}</div>
       <div class="vpinfo">
