@@ -3056,6 +3056,12 @@
         .sr-av.frame-immortal {
             box-shadow: 0 0 14px 3px #ff6ec7, 0 0 24px #a855f7 !important;
         }
+
+        @media(max-width:800px) {
+            #lobby-mobile-info-btn {
+                display: inline-flex !important;
+            }
+        }
     </style>
 </head>
 
@@ -3172,6 +3178,8 @@
                             title="Kodu kopyala">📋</button>
                     </div>
                     <span class="badge b-wood" id="lobby-pcount">0/6</span>
+                    <button class="info-btn" onclick="openInfoModal()" id="lobby-mobile-info-btn"
+                        style="display:none;">?</button>
                     <div class="role-badge" id="lobby-role-badge" style="display:none">
                         <span class="role-badge-text" id="lobby-role-text">1 Hain</span>
                         <button class="info-btn" onclick="openInfoModal()">ℹ</button>
