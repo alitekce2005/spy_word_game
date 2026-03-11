@@ -5095,21 +5095,6 @@
                     joinInput.style.opacity = '0.7';
                 }
 
-                // Profil fotoğrafı ve çerçeveyi global olarak sakla
-                // YENİ: DAVET LİNKİYLE GELDİYSE OTOMATİK MASAYA OTUR
-                const urlP = new URLSearchParams(location.search);
-                const invCode = urlP.get('code');
-
-                // Eğer linkte kod varsa VE oyuncu Katıl (Join) ekranındaysa
-                if (invCode && document.getElementById('screen-join').classList.contains('active')) {
-                    const jBtn = document.getElementById('btn-join-lobby');
-                    if (jBtn) jBtn.textContent = "Bağlanıyor...";
-
-                    // İsimlerin sisteme tam oturması için yarım saniye bekleyip Lobiye Giriş yap
-                    setTimeout(() => {
-                        joinLobby();
-                    }, 600);
-                }
             }
         });
 
