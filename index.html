@@ -715,8 +715,10 @@
 
         @media(max-width:600px) {
             .lobby-topbar {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 overflow: hidden;
+                padding: 8px 10px;
+                gap: 6px;
             }
 
             .invite-row {
@@ -724,9 +726,7 @@
             }
 
             .lobby-topbar .theme-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 14px;
+                display: none;
             }
 
             .lobby-topbar-left .role-badge {
@@ -734,15 +734,46 @@
             }
 
             .rp-code {
-                font-size: 16px !important;
-                letter-spacing: .08em !important;
+                font-size: 13px !important;
+                letter-spacing: .06em !important;
+            }
+
+            .rp-label {
+                display: none;
+            }
+
+            .room-pill {
+                padding: 4px 8px 4px 8px;
+                gap: 4px;
+                flex-shrink: 0;
+            }
+
+            .lobby-pcount-badge {
+                display: none;
+            }
+
+            .lobby-topbar-left {
+                gap: 5px;
+                flex-shrink: 1;
+                min-width: 0;
+                overflow: hidden;
             }
 
             .lobby-topbar-right {
                 gap: 5px;
                 flex-wrap: nowrap;
                 min-width: 0;
-                overflow: hidden;
+                flex-shrink: 0;
+            }
+
+            #start-btn {
+                padding: 10px 14px !important;
+                font-size: 13px !important;
+                white-space: nowrap;
+            }
+
+            .lobby-mobile-game-info {
+                display: flex !important;
             }
         }
 
@@ -1126,6 +1157,44 @@
             background: var(--teal);
             color: #fff;
             border-color: var(--teal)
+        }
+
+        /* Mobil lobi bilgi satırı */
+        .lobby-mobile-game-info {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            overflow: hidden;
+            max-width: 100%;
+        }
+
+        .lmgi-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(179, 157, 219, .15);
+            border: 1.5px solid rgba(179, 157, 219, .35);
+            border-radius: 50px;
+            padding: 4px 9px;
+            cursor: pointer;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .lmgi-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--lavender);
+            animation: shimmer 1.5s infinite;
+        }
+
+        .lmgi-text {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--lavender);
         }
 
         /* Mobile settings card inside lobby-main (only on mobile) */
@@ -3171,10 +3240,17 @@
                             onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6"
                             title="Kodu kopyala">📋</button>
                     </div>
-                    <span class="badge b-wood" id="lobby-pcount">0/6</span>
+                    <span class="badge b-wood lobby-pcount-badge" id="lobby-pcount">0/10</span>
                     <div class="role-badge" id="lobby-role-badge" style="display:none">
                         <span class="role-badge-text" id="lobby-role-text">1 Hain</span>
                         <button class="info-btn" onclick="openInfoModal()">ℹ</button>
+                    </div>
+                    <!-- Sadece mobilde görünen: Oyun ? bilgi pill -->
+                    <div class="lobby-mobile-game-info" id="lobby-mobile-game-info">
+                        <div class="lmgi-pill" onclick="openInfoModal()">
+                            <div class="lmgi-dot"></div>
+                            <span class="lmgi-text" id="lmgi-text">Oyun ?</span>
+                        </div>
                     </div>
                 </div>
                 <div class="lobby-topbar-right">
@@ -3185,7 +3261,7 @@
                     <button class="theme-btn" onclick="toggleTheme()" aria-label="Temayı değiştir">
                         <span class="theme-icon">🌙</span>
                     </button>
-                    <button class="btn btn-primary" id="start-btn" onclick="startGame()" disabled>🚀 Başlat</button>
+                    <button class="btn btn-primary btn-sm" id="start-btn" onclick="startGame()" disabled>🚀 Başlat</button>
                 </div>
             </div>
 
@@ -3753,6 +3829,18 @@
             // Lobi rozet görünürlüğü
             const lb = document.getElementById('lobby-role-badge');
             if (lb) lb.style.display = (r.traitor > 0 || r.neutral > 0) ? 'inline-flex' : 'none';
+
+            // Mobil "Oyun ?" pill içeriğini güncelle
+            const lmgi = document.getElementById('lmgi-text');
+            if (lmgi) {
+                const dots = ['Oyun ?', 'Oyun ??', 'Oyun ???'];
+                lmgi._rotateIdx = ((lmgi._rotateIdx || 0) + 1) % dots.length;
+                // İçeriği roller bilgisine göre yaz
+                const parts = [];
+                if (r.traitor > 0) parts.push(r.traitor + ' Hain');
+                if (r.neutral > 0) parts.push(r.neutral + ' Tarafsız');
+                lmgi.textContent = parts.length ? '? ' + parts.join(' · ') : 'Oyun ?';
+            }
         }
 
         /* ═══ ROL DAĞITIMI ═══ */
