@@ -715,10 +715,11 @@
 
         @media(max-width:600px) {
             .lobby-topbar {
-                flex-wrap: nowrap;
-                overflow: hidden;
+                flex-direction: column;
+                align-items: stretch;
                 padding: 8px 10px;
                 gap: 6px;
+                overflow: visible;
             }
 
             .invite-row {
@@ -733,9 +734,15 @@
                 display: none !important;
             }
 
-            .rp-code {
-                font-size: 13px !important;
-                letter-spacing: .06em !important;
+            /* Üst satır: Çık + Kod + Mobil info pill */
+            .lobby-topbar-left {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 6px;
+                width: 100%;
+                min-width: 0;
+                overflow: hidden;
             }
 
             .rp-label {
@@ -743,37 +750,47 @@
             }
 
             .room-pill {
-                padding: 4px 8px 4px 8px;
+                padding: 4px 8px;
                 gap: 4px;
                 flex-shrink: 0;
             }
 
+            .rp-code {
+                font-size: 14px !important;
+                letter-spacing: .08em !important;
+            }
+
             .lobby-pcount-badge {
-                display: none;
-            }
-
-            .lobby-topbar-left {
-                gap: 5px;
-                flex-shrink: 1;
-                min-width: 0;
-                overflow: hidden;
-            }
-
-            .lobby-topbar-right {
-                gap: 5px;
-                flex-wrap: nowrap;
-                min-width: 0;
-                flex-shrink: 0;
-            }
-
-            #start-btn {
-                padding: 10px 14px !important;
-                font-size: 13px !important;
-                white-space: nowrap;
+                display: none !important;
             }
 
             .lobby-mobile-game-info {
                 display: flex !important;
+                margin-left: auto;
+                flex-shrink: 0;
+            }
+
+            /* Alt satır: Oyuncu sayısı + Başlat butonu */
+            .lobby-topbar-right {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 6px;
+                width: 100%;
+                min-width: 0;
+            }
+
+            #lobby-pcount {
+                flex-shrink: 0;
+                font-size: 11px;
+            }
+
+            #start-btn {
+                flex: 1;
+                padding: 11px 10px !important;
+                font-size: 14px !important;
+                white-space: nowrap;
+                border-radius: 12px !important;
             }
         }
 
@@ -3261,7 +3278,8 @@
                     <button class="theme-btn" onclick="toggleTheme()" aria-label="Temayı değiştir">
                         <span class="theme-icon">🌙</span>
                     </button>
-                    <button class="btn btn-primary btn-sm" id="start-btn" onclick="startGame()" disabled>🚀 Başlat</button>
+                    <button class="btn btn-primary btn-sm" id="start-btn" onclick="startGame()" disabled>🚀
+                        Başlat</button>
                 </div>
             </div>
 
