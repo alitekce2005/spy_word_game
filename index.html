@@ -672,15 +672,18 @@
             background: var(--warm);
             border: 2px solid var(--border2);
             border-radius: var(--r);
-            padding: 14px 18px;
-            gap: 12px
+            padding: 10px 12px;
+            gap: 8px;
+            flex-wrap: wrap;
+            overflow: hidden;
+            min-width: 0
         }
 
         .code-val {
             font-family: 'Fredoka', sans-serif;
             font-weight: 700;
-            font-size: 36px;
-            letter-spacing: .18em;
+            font-size: clamp(22px, 7vw, 36px);
+            letter-spacing: .12em;
             color: var(--wood2)
         }
 
@@ -712,12 +715,8 @@
 
         @media(max-width:600px) {
             .lobby-topbar {
-                padding: 8px 10px;
-                gap: 6px;
-            }
-
-            .lobby-topbar-right {
-                gap: 5px;
+                flex-wrap: wrap;
+                overflow: hidden;
             }
 
             .invite-row {
@@ -725,8 +724,9 @@
             }
 
             #start-btn {
-                padding: 8px 12px;
-                font-size: 13px;
+                padding: 7px 10px;
+                font-size: 12px;
+                white-space: nowrap;
             }
 
             .lobby-topbar .theme-btn {
@@ -742,6 +742,13 @@
             .rp-code {
                 font-size: 16px !important;
                 letter-spacing: .08em !important;
+            }
+
+            .lobby-topbar-right {
+                gap: 5px;
+                flex-wrap: nowrap;
+                min-width: 0;
+                overflow: hidden;
             }
         }
 
@@ -5066,12 +5073,25 @@
 
         /* INIT */
         (function () {
-            const p = new URLSearchParams(location.search); const code = p.get('code');
+            const ALI_STORE_URL = 'https://alitekce2005.github.io/Ali_Store/';
+            const p = new URLSearchParams(location.search);
+            const code = p.get('code');
+
+            // Ali Store iframe'i dışında açıldıysa → Ali Store'a yönlendir
+            if (window.parent === window) {
+                const redirectUrl = code
+                    ? ALI_STORE_URL + '?game=10&code=' + code.toUpperCase()
+                    : ALI_STORE_URL + '?game=10';
+                window.location.replace(redirectUrl);
+                return; // Aşağıdaki kodlar çalışmasın
+            }
+
+            // Ali Store iframe'inden gelindi → normal akış
             if (code) { document.getElementById('join-code').value = code.toUpperCase(); goTo('screen-join') }
             regenCode();
             window.addEventListener('resize', () => { if (document.getElementById('screen-lobby').classList.contains('active')) renderTable() });
 
-            // YENİ: Ali Store'a "Oyun Hazır" sinyali gönder
+            // Ali Store'a "Oyun Hazır" sinyali gönder
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({ type: 'GAME_READY', gameId: 10 }, '*');
             }
@@ -5080,6 +5100,10 @@
         window.addEventListener('message', function (event) {
             const data = event.data;
             if (data && data.type === 'INIT_USER') {
+                // Kullanıcı bilgilerini global state'e kaydet
+                G.myPhotoURL = data.photoURL || null;
+                G.myActiveFrame = data.activeFrame || null;
+
                 const createInput = document.getElementById('create-name');
                 const joinInput = document.getElementById('join-name');
 
@@ -5088,13 +5112,11 @@
                     createInput.readOnly = true;
                     createInput.style.opacity = '0.7';
                 }
-
                 if (joinInput) {
                     joinInput.value = data.username;
                     joinInput.readOnly = true;
                     joinInput.style.opacity = '0.7';
                 }
-
             }
         });
 
